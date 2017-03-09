@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">StudyBuddy</string>
+    <string name="profile_name">Shawn Clarke</string>
+    <string name="profile_school">University of South Florida</string>
+    <string name="profile_major">Computer Science</string>
+    <string name="profile_year">Senior</string>
+    <string name="profile_courses">Algorithms</string>
+
+    <string name="profile_schoolText">School</string>
+    <string name="profile_majorText">Major</string>
+    <string name="profile_yearText">Year</string>
+    <string name="profile_coursesText">Courses</string>
+
+
 
     <!-- Login Strings -->
     <string name="studybuddy_status_fmt">StudyBuddy User: %s</string>
