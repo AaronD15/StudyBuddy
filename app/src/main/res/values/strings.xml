@@ -1,4 +1,5 @@
 <resources>
+    <!--Profile Strings!-->
     <string name="app_name">StudyBuddy</string>
     <string name="profile_name">Shawn Clarke</string>
     <string name="profile_school">University of South Florida</string>
@@ -11,6 +12,17 @@
     <string name="profile_yearText">Year</string>
     <string name="profile_coursesText">Courses</string>
 
+    <!--Scheduler Strings-->
+    <string name="studyPlace_button">Places</string>
+    <string name="places_text">Click to view places to study near you</string>
+
+    <!--Group Strings-->
+    <string name="group">Groups</string>
+    <string name="friend">Friends</string>
+    <string name="create_button">Create</string>
+    <string name="add_button">Add Friends</string>
+    <string name="create_groups">Click Create to add new Groups!</string>
+    <string name="add_friends">Click Add to find new friends!</string>
 
     <!-- Login Strings -->
     <string name="studybuddy_status_fmt">StudyBuddy User: %s</string>
