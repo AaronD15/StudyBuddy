@@ -61,7 +61,7 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
                 if (user != null) {
                     Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
                     if(user.isEmailVerified())
-                        moveToMain();
+                        startMain();
                 } else {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
@@ -85,28 +85,10 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
         hideProgressDialog();
     }
 
-    private void createAccount(String email, String password) {
-        Log.d(TAG, "createAccount: " + email);
-        if (!validateForm()){
-            return;
-        }
-
-        showProgressDialog();
-
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
-
-                        if (!task.isSuccessful()){
-                            Toast.makeText(EmailPasswordActivity.this, R.string.auth_failed, Toast.LENGTH_SHORT).show();
-                        }
-                        hideProgressDialog();
-                        sendEmailVerification();
-                    }
-                });
-
+    private void createAccount() {
+        Intent intent = new Intent(this, CreateAccount.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 
     private void signIn(String email, String password) {
@@ -131,7 +113,7 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
                         hideProgressDialog();
 
                         if(mAuth.getCurrentUser().isEmailVerified())
-                            moveToMain();
+                            startMain();
                     }
                 });
     }
@@ -188,31 +170,22 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
 
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
-        if (user != null) {
-            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt,
-                    user.getEmail(), user.isEmailVerified()));
-            mDetailTextView.setText(getString(R.string.studybuddy_status_fmt, user.getUid()));
 
-            findViewById(R.id.email_password_buttons).setVisibility(View.GONE);
-            findViewById(R.id.email_password_fields).setVisibility(View.GONE);
-            findViewById(R.id.signed_in_buttons).setVisibility(View.VISIBLE);
-
-            findViewById(R.id.verify_email_button).setEnabled(!user.isEmailVerified());
-        } else {
+        if(user == null)
             mStatusTextView.setText(R.string.signed_out);
+        else
             mDetailTextView.setText(null);
 
             findViewById(R.id.email_password_buttons).setVisibility(View.VISIBLE);
             findViewById(R.id.email_password_fields).setVisibility(View.VISIBLE);
             findViewById(R.id.signed_in_buttons).setVisibility(View.GONE);
-        }
     }
 
     @Override
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.email_create_account_button) {
-            createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
+            createAccount();
         } else if (i == R.id.email_sign_in_button) {
             signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
         } else if (i == R.id.sign_out_button) {
@@ -238,7 +211,7 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    public void moveToMain() {
+    public void startMain() {
         Intent intent = new Intent(this, MainActivity.class);
 
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
