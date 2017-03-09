@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity  {
         tabLayout.addTab(tabLayout.newTab().setText("Search"));
         tabLayout.addTab(tabLayout.newTab().setText("Schedule"));
         tabLayout.addTab(tabLayout.newTab().setText("Profile"));
+        tabLayout.addTab(tabLayout.newTab().setText("Groups"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -92,6 +93,8 @@ public class MainActivity extends AppCompatActivity  {
             case R.id.sign_out:
                 signOut();
                 break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
         return true;
     }

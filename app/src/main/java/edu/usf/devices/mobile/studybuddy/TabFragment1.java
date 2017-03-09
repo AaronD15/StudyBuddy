@@ -15,7 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class TabFragment1 extends Fragment {
 
     Button search;
-    FirebaseDatabase database;
+    private DatabaseReference database;
 
     public TabFragment1() {
         // Required empty public constructor
@@ -36,11 +36,9 @@ public class TabFragment1 extends Fragment {
             }
         });
 
-        database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Class");
+        database = FirebaseDatabase.getInstance().getReference();
 
-        myRef.setValue("Hello");
-        myRef.setValue("Hi");
+        database.child("users").child("Aaron").setValue("Yo");
 
         return view;
     }
