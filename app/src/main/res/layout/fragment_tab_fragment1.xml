@@ -1,23 +1,47 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="edu.usf.devices.mobile.studybuddy.TabFragment1">
 
+    <!-- Search entries -->
+
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/class_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="@string/class_search"
+        android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:orientation="horizontal">
 
-</FrameLayout>
+        <EditText
+            android:id="@+id/school_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/school_search"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:text="@string/search_button" />
+
+    </LinearLayout>
+
+    <!-- Listed options -->
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

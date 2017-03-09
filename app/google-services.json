@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "592640195245",
+    "firebase_url": "https://studybuddy-48050.firebaseio.com",
+    "project_id": "studybuddy-48050",
+    "storage_bucket": "studybuddy-48050.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592640195245:android:4687efc1cb2cd8d4",
+        "android_client_info": {
+          "package_name": "edu.usf.devices.mobile.studybuddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592640195245-bsibe40pjhq40ligpfg1325vmvklhknt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.usf.devices.mobile.studybuddy",
+            "certificate_hash": "5a860587c45fd02d579880fe2d3d46431224fa06"
+          }
+        },
+        {
+          "client_id": "592640195245-rr3vq9n5qgpi7dro3k47s7vbbc85pgq5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEPY5_H7kUGcVOZpzlr7yAWITKy9gVkEw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592640195245-rr3vq9n5qgpi7dro3k47s7vbbc85pgq5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

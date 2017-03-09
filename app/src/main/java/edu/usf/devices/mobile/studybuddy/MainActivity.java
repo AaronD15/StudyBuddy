@@ -1,14 +1,23 @@
 package edu.usf.devices.mobile.studybuddy;
 
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.util.Log;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
+    private String TAG = "debug";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +54,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-    }*/
 }
