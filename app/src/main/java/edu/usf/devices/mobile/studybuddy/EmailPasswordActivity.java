@@ -60,6 +60,8 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
+                    if(user.isEmailVerified())
+                        moveToMain();
                 } else {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
@@ -238,6 +240,9 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
 
     public void moveToMain() {
         Intent intent = new Intent(this, MainActivity.class);
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }

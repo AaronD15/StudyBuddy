@@ -28,4 +28,11 @@
     <string name="class_search">Class</string>
     <string name="school_search">School</string>
     <string name="search_button">Go</string>
+    
+    <!-- Drawer Items -->
+    <string-array name="drawer_selections">
+        <item>Settings</item>
+        <item>Contact Us</item>
+        <item>About</item>
+    </string-array>
 </resources>

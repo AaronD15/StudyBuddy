@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class TabFragment1 extends Fragment {
 
     Button search;
+    FirebaseDatabase database;
 
     public TabFragment1() {
         // Required empty public constructor
@@ -35,6 +35,12 @@ public class TabFragment1 extends Fragment {
                 Toast.makeText(getActivity(), "Hello", Toast.LENGTH_SHORT).show();
             }
         });
+
+        database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Class");
+
+        myRef.setValue("Hello");
+        myRef.setValue("Hi");
 
         return view;
     }
