@@ -19,10 +19,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity  {
 
-    private String[] mTitles;
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-
     FirebaseAuth.AuthStateListener mAuthListener;
 
     final String TAG = "MainActivity";
@@ -77,12 +73,23 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.options_menu, menu);
 
 
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
@@ -107,9 +114,12 @@ public class MainActivity extends AppCompatActivity  {
     private void LogInScreen() {
         Intent intent = new Intent(this, EmailPasswordActivity.class);
 
+
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
+
+
 
 }

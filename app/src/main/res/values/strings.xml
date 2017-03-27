@@ -1,11 +1,11 @@
 <resources>
     <!--Profile Strings!-->
     <string name="app_name">StudyBuddy</string>
-    <string name="profile_name">Shawn Clarke</string>
-    <string name="profile_school">University of South Florida</string>
-    <string name="profile_major">Computer Science</string>
-    <string name="profile_year">Senior</string>
-    <string name="profile_courses">Algorithms</string>
+    <string name="profile_name">Profile Name</string>
+    <string name="profile_school">School</string>
+    <string name="profile_major">Major</string>
+    <string name="profile_year">Year</string>
+    <string name="profile_courses">Courses</string>
 
     <string name="profile_schoolText">School</string>
     <string name="profile_majorText">Major</string>
@@ -48,7 +48,7 @@
     <string name="desc_studybuddylogo">StudyBuddy logo and name</string>
 
     <!-- MainActivity Strings -->
-    <string name="class_search">Class</string>
+    <string name="search_hint">Search</string>
     <string name="school_search">School</string>
     <string name="search_button">Go</string>
 
@@ -57,4 +57,19 @@
     <string name="options_signout">Sign Out</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="year_prompt">Choose a year</string>
+    <string-array name="year_array">
+        <item>Year</item>
+        <item>Freshman</item>
+        <item>Sophomore</item>
+        <item>Junior</item>
+        <item>Senior</item>
+    </string-array>
+
+    <string-array name="search_options">
+        <item>Class</item>
+        <item>School</item>
+        <item>Professor</item>
+    </string-array>
 </resources>

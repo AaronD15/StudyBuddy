@@ -1,7 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top"
     android:orientation="vertical"
 
     tools:context="edu.usf.devices.mobile.studybuddy.TabFragment3">
@@ -9,119 +10,147 @@
 
     <ImageView
         android:id="@+id/ProfileImage"
-        android:layout_marginTop="40dp"
-        android:paddingBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/stock"/>
+        android:layout_marginTop="44dp"
+        android:contentDescription="Profile Picture"
+        android:paddingBottom="5dp"
+        android:src="@drawable/stock" />
+
     <TextView
         android:id="@+id/nameView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ProfileImage"
-        android:layout_centerHorizontal="true"
-        android:paddingTop="5dp"
+        android:gravity="center_horizontal"
         android:paddingBottom="5dp"
+        android:paddingTop="5dp"
         android:text="@string/profile_name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/schoolText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/nameView"
-            android:paddingStart="10dp"
+            android:layout_weight="3"
             android:paddingEnd="5dp"
-            android:text="@string/profile_schoolText"
+            android:paddingStart="10dp"
             android:paddingTop="10dp"
+            android:text="@string/profile_schoolText"
             android:textSize="15dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/schoolView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_below="@id/nameView"
-            android:paddingTop="10dp"
-            android:textSize="15dp"
-            android:paddingStart="25dp"
+            android:layout_marginStart="7dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:paddingEnd="5dp"
-            android:text="@string/profile_school"/>
+            android:paddingStart="25dp"
+            android:paddingTop="10dp"
+            android:text="@string/profile_school"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/majorText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/schoolText"
-            android:paddingTop="10dp"
-            android:textSize="15dp"
-            android:paddingStart="10dp"
+            android:layout_weight="3"
             android:paddingEnd="5dp"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
             android:text="@string/profile_majorText"
-            android:textStyle="bold"/>
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/majorView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/schoolText"
-            android:layout_marginLeft="50dp"
-            android:paddingTop="10dp"
-            android:textSize="15dp"
-            android:paddingStart="25dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:paddingEnd="10dp"
-            android:text="@string/profile_major"/>
+            android:paddingStart="25dp"
+            android:paddingTop="10dp"
+            android:text="@string/profile_major"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/yearText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/majorText"
-            android:paddingTop="10dp"
-            android:textSize="15dp"
-            android:paddingStart="10dp"
+            android:layout_weight="3"
             android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
             android:text="@string/profile_yearText"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/yearView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/majorText"
-            android:layout_marginLeft="50dp"
-            android:layout_centerVertical="true"
-            android:paddingTop="10dp"
-            android:textSize="15dp"
-            android:paddingStart="25dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:paddingEnd="10dp"
-            android:text="@string/profile_year"/>
+            android:paddingStart="25dp"
+            android:paddingTop="10dp"
+            android:text="@string/profile_year"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/coursesText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/yearText"
-            android:paddingTop="10dp"
-            android:textSize="15dp"
-            android:paddingStart="10dp"
+            android:layout_weight="3"
             android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
             android:text="@string/profile_coursesText"
-            android:textStyle="bold"/>
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/coursesView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/yearText"
-            android:layout_marginLeft="50dp"
-            android:paddingTop="10dp"
-            android:textSize="15dp"
-            android:paddingStart="25dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:paddingEnd="10dp"
-            android:text="@string/profile_courses"/>
+            android:paddingStart="25dp"
+            android:paddingTop="10dp"
+            android:text="@string/profile_courses"
+            android:textSize="15dp" />
+
+    </LinearLayout>
 
 
-
-</RelativeLayout>
+</LinearLayout>

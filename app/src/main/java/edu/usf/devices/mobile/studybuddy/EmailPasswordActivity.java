@@ -108,12 +108,13 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
                             Toast.makeText(EmailPasswordActivity.this, R.string.auth_failed, Toast.LENGTH_SHORT).show();
+                        } else {
+                            if(mAuth.getCurrentUser().isEmailVerified())
+                                startMain();
+                            else
+                                Toast.makeText(EmailPasswordActivity.this, "Please verify your email.", Toast.LENGTH_SHORT).show();
                         }
-
                         hideProgressDialog();
-
-                        if(mAuth.getCurrentUser().isEmailVerified())
-                            startMain();
                     }
                 });
     }

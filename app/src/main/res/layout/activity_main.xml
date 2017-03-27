@@ -14,7 +14,7 @@
         android:background="?attr/colorPrimary"
         android:elevation="6dp"
         android:minHeight="58dp"
-        android:popupTheme="@style/AppTheme"
+        app:theme="@style/WhiteTextToolbar"
         app:titleTextColor="@color/white"
         />
 
