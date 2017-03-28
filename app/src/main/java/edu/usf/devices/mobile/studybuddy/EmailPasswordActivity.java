@@ -3,6 +3,7 @@ package edu.usf.devices.mobile.studybuddy;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -109,10 +110,14 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
                             Toast.makeText(EmailPasswordActivity.this, R.string.auth_failed, Toast.LENGTH_SHORT).show();
                         } else {
-                            if(mAuth.getCurrentUser().isEmailVerified())
-                                startMain();
-                            else
-                                Toast.makeText(EmailPasswordActivity.this, "Please verify your email.", Toast.LENGTH_SHORT).show();
+                            try {
+                                if (mAuth.getCurrentUser().isEmailVerified())
+                                    startMain();
+                                else
+                                    Toast.makeText(EmailPasswordActivity.this, "Please verify your email.", Toast.LENGTH_SHORT).show();
+                            } catch (NullPointerException e){
+                                Toast.makeText(EmailPasswordActivity.this, "Error checking email verification.e", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         hideProgressDialog();
                     }
@@ -130,21 +135,25 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
 
         // Send verification email
         final FirebaseUser user = mAuth.getCurrentUser();
-        user.sendEmailVerification()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        //Re-enable button
-                        findViewById(R.id.verify_email_button).setEnabled(true);
+        try {
+            user.sendEmailVerification()
+                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            //Re-enable button
+                            findViewById(R.id.verify_email_button).setEnabled(true);
 
-                        if (task.isSuccessful()){
-                            Toast.makeText(EmailPasswordActivity.this, "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.e(TAG, "sendEmailVerification", task.getException());
-                            Toast.makeText(EmailPasswordActivity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                            if (task.isSuccessful()) {
+                                Toast.makeText(EmailPasswordActivity.this, "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.e(TAG, "sendEmailVerification", task.getException());
+                                Toast.makeText(EmailPasswordActivity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+        } catch (NullPointerException e) {
+            Toast.makeText(EmailPasswordActivity.this, "Could not send Verification Email", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private boolean validateForm() {

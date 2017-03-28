@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="edu.usf.devices.mobile.studybuddy.InputCourseDialog">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/inputCourseToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:theme="@style/WhiteTextToolbar"
+        app:titleTextColor="@color/white" />
+
+    <EditText
+        android:id="@+id/inputCourseName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="15"
+        android:hint="Course Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/inputCourseProf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="15"
+        android:hint="Professor"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/inputCourseSchool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="15"
+        android:hint="School"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/inputCourseNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="15"
+        android:hint="Course Number (Optional)"
+        android:inputType="textPersonName" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/inputCourseCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel" />
+
+        <Button
+            android:id="@+id/inputCourseBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:text="Insert" />
+    </LinearLayout>
+
+</LinearLayout>

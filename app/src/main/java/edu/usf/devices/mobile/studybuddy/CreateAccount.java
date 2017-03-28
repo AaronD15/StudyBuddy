@@ -103,7 +103,9 @@ public class CreateAccount extends AppCompatActivity {
                                 Toast.makeText(CreateAccount.this, R.string.auth_failed, Toast.LENGTH_LONG).show();
                                 hideProgressDialog();
                             } else {
-                                String uid = mAuth.getCurrentUser().getUid();
+                                try {
+                                    String uid = mAuth.getCurrentUser().getUid();
+
                                 mAuth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder()
                                         .setDisplayName(username)
                                         .build());
@@ -118,6 +120,9 @@ public class CreateAccount extends AppCompatActivity {
                                 hideProgressDialog();
                                 sendEmailVerification();
                                 finish();
+                                } catch (NullPointerException e){
+                                    Toast.makeText(CreateAccount.this, "Error getting User's Information", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
                     });
@@ -128,20 +133,24 @@ public class CreateAccount extends AppCompatActivity {
 
         // Send verification email
         final FirebaseUser user = mAuth.getCurrentUser();
-        user.sendEmailVerification()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        //Re-enable button
+        try {
+            user.sendEmailVerification()
+                    .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            //Re-enable button
 
-                        if (task.isSuccessful()){
-                            Toast.makeText(CreateAccount.this, "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.e(TAG, "sendEmailVerification", task.getException());
-                            Toast.makeText(CreateAccount.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                            if (task.isSuccessful()) {
+                                Toast.makeText(CreateAccount.this, "Verification email sent to " + user.getEmail(), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.e(TAG, "sendEmailVerification", task.getException());
+                                Toast.makeText(CreateAccount.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+        } catch (NullPointerException e){
+            Toast.makeText(CreateAccount.this, "Error checking user verification.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
