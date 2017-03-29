@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +36,7 @@ public class TabFragment4 extends Fragment{
     Button createButton;
     DatabaseReference groupData;
     ListView profileGroups;
-    ArrayList<String> groups;
+    ArrayList<Group> groups;
     Context context;
 
     public TabFragment4() {
@@ -55,18 +57,21 @@ public class TabFragment4 extends Fragment{
 
         groups = new ArrayList<>();
         groupData = FirebaseDatabase.getInstance().getReference().child("groups");
-        groupData.orderByChild("Creator").addValueEventListener(new ValueEventListener() {
+
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        groupData.orderByChild("creator").equalTo(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 groups.clear();
 
-                for( DataSnapshot group : dataSnapshot.getChildren() ){
-                    groups.add(group.getKey());
+                for( DataSnapshot group : dataSnapshot.getChildren()){
+                    groups.add(group.getValue(Group.class));
+                    Log.d("TAG", group.getKey());
                 }
 
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, groups);
-                profileGroups.setAdapter(arrayAdapter);
+                GroupListAdapter groupListAdapter = new GroupListAdapter(context, groups);
+                profileGroups.setAdapter(groupListAdapter);
                 profileGroups.setEmptyView(view.findViewById(R.id.empty));
             }
 
@@ -76,6 +81,28 @@ public class TabFragment4 extends Fragment{
             }
         });
 
+        /*groupData.orderByChild("creator").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                groups.clear();
+
+                for( DataSnapshot group : dataSnapshot.getChildren() ){
+                    groups.add(group.child("title").getValue().toString());
+                }
+
+                GroupListAdapter groupListAdapter = new
+                //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, groups);
+                profileGroups.setAdapter(arrayAdapter);
+                profileGroups.setEmptyView(view.findViewById(R.id.empty));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+
         return view;
     }
 
@@ -83,10 +110,11 @@ public class TabFragment4 extends Fragment{
     public void onStart() {
         super.onStart();
         createButton.setOnClickListener(new createGroupListener());
-        profileGroups.setOnItemLongClickListener(new groupSelection());
+        profileGroups.setOnItemClickListener(new groupSelection());
+        profileGroups.setOnItemLongClickListener(new deleteGroup());
     }
 
-    class createGroupListener implements View.OnClickListener {
+    private class createGroupListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(getActivity(), CreateGroup.class);
@@ -95,16 +123,22 @@ public class TabFragment4 extends Fragment{
         }
     }
 
-    class groupSelection implements AdapterView.OnItemLongClickListener {
+    private class groupSelection implements AdapterView.OnItemClickListener{
         @Override
-        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-            Intent intent = new Intent(getActivity(), GroupDetails.class);
-            String data = profileGroups.getItemAtPosition(position).toString();
-            intent.putExtra("GROUP_NAME", data);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(intent);
-            return true;
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            GroupDetailsDialog dialog = GroupDetailsDialog.newInstance((Group)profileGroups.getItemAtPosition(position));
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            dialog.show(fm, "Fragment");
         }
     }
 
+    private class deleteGroup implements AdapterView.OnItemLongClickListener{
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            DeleteGroupDialog dialog = DeleteGroupDialog.newInstance((Group)profileGroups.getItemAtPosition(position));
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            dialog.show(fm, "Fragment");
+            return true;
+        }
+    }
 }

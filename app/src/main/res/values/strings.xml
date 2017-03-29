@@ -73,4 +73,19 @@
         <item>Professor</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
+
+    <string-array name="schools_list">
+        <item>Florida Agricultural and Mechanical University</item>
+        <item>Florida Atlantic University</item>
+        <item>Florida Gulf Coast University</item>
+        <item>Florida International University</item>
+        <item>Florida Polytechnic University</item>
+        <item>Florida State University</item>
+        <item>New College of Florida</item>
+        <item>University of Central Florida</item>
+        <item>University of Florida</item>
+        <item>University of North Florida</item>
+        <item>University of South Florida</item>
+        <item>University of West Florida</item>
+    </string-array>
 </resources>
