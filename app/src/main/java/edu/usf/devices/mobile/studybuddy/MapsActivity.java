@@ -84,6 +84,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
 

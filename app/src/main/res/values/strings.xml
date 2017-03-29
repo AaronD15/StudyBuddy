@@ -6,6 +6,7 @@
     <string name="profile_major">Major</string>
     <string name="profile_year">Year</string>
     <string name="profile_courses">Courses</string>
+    <string name="profilegroup_empty">You are currently not in a group</string>
 
     <string name="profile_schoolText">School</string>
     <string name="profile_majorText">Major</string>

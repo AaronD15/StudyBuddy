@@ -42,6 +42,7 @@ public class TabFragment2 extends Fragment {
                 Toast.makeText(getActivity(), month+1 + "/" + day + "/" + year, Toast.LENGTH_SHORT).show();
             }
         });
+        
 
         //Opens MapActivity when the places button is clicked
         button.setOnClickListener(new View.OnClickListener() {
