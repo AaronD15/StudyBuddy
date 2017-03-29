@@ -1,18 +1,16 @@
 package edu.usf.devices.mobile.studybuddy;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -99,6 +97,8 @@ public class MainActivity extends AppCompatActivity  {
                 break;
             case R.id.sign_out:
                 signOut();
+            case R.id.update_acc:
+                UpdateProfile();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -109,6 +109,14 @@ public class MainActivity extends AppCompatActivity  {
     public void signOut() {
         FirebaseAuth.getInstance().signOut();
         LogInScreen();
+    }
+
+    public void UpdateProfile() {
+        Intent intent = new Intent(this, UpdateProfile.class);
+
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void LogInScreen() {
