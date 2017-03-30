@@ -73,10 +73,11 @@ public class DeleteGroupDialog extends DialogFragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(context, "Group successfully deleted", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Group successfully deleted.", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(context, "Failed to delete group", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Failed to delete group.", Toast.LENGTH_SHORT).show();
                             }
+                            getDialog().dismiss();
                         }
                     });
                     Log.d("HEY", "delete");

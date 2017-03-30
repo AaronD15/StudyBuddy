@@ -81,28 +81,6 @@ public class TabFragment4 extends Fragment{
             }
         });
 
-        /*groupData.orderByChild("creator").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                groups.clear();
-
-                for( DataSnapshot group : dataSnapshot.getChildren() ){
-                    groups.add(group.child("title").getValue().toString());
-                }
-
-                GroupListAdapter groupListAdapter = new
-                //ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, groups);
-                profileGroups.setAdapter(arrayAdapter);
-                profileGroups.setEmptyView(view.findViewById(R.id.empty));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
-
         return view;
     }
 

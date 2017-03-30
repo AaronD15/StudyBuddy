@@ -98,8 +98,9 @@ public class MainActivity extends AppCompatActivity  {
                 break;
             case R.id.sign_out:
                 signOut();
+                break;
             case R.id.update_acc:
-                UpdateProfile();
+                //UpdateProfile();
                 break;
             default:
                 return super.onOptionsItemSelected(item);

@@ -9,7 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.SearchView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -34,15 +37,13 @@ import java.util.ArrayList;
 
 public class TabFragment1 extends Fragment {
 
-    private FloatingActionButton search;
-    private DatabaseReference groupData;
-    private EditText searchField;
+    private SearchView searchBar;
     private Context context;
-    private String searchText, searchOption;
     private ListView listedGroups;
     private Spinner spinner;
     private ProgressDialog progressDialog;
     private ArrayList<Group> groups;
+    GroupListAdapter groupListAdapter;
 
     public TabFragment1() {
         // Required empty public constructor
@@ -62,47 +63,50 @@ public class TabFragment1 extends Fragment {
 
         context = getContext();
 
+        searchBar = (SearchView)view.findViewById(R.id.searchBar);
+
         listedGroups = (ListView) view.findViewById(R.id.listedGroups);
-        search = (FloatingActionButton)  view.findViewById(R.id.button);
-        searchField = (EditText) view.findViewById(R.id.search_input);
         spinner = (Spinner) view.findViewById(R.id.search_spinner);
 
-        groupData = FirebaseDatabase.getInstance().getReference().child("groups");
+        DatabaseReference groupData = FirebaseDatabase.getInstance().getReference().child("groups");
         groups = new ArrayList<>();
 
-        setUpProgressDialog();
-
-        search.setOnClickListener(new View.OnClickListener() {
+        groupData.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                searchText = searchField.getText().toString();
-                searchOption = spinner.getSelectedItem().toString().toLowerCase();
+                groups.clear();
 
-                groupData.orderByChild(searchOption).equalTo(searchText).addListenerForSingleValueEvent(new ValueEventListener() {
+                Log.d("Snap", dataSnapshot.getKey());
+
+                for (DataSnapshot group : dataSnapshot.getChildren()){
+                    groups.add(group.getValue(Group.class));
+                    Log.d("Children", group.getKey());
+                }
+
+                groupListAdapter = new GroupListAdapter(context, groups);
+                listedGroups.setAdapter(groupListAdapter);
+                searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        groups.clear();
-
-                        Log.d("Snap", dataSnapshot.getKey());
-
-                        progressDialogOn(true);
-                        for (DataSnapshot group : dataSnapshot.getChildren()){
-                            groups.add(group.getValue(Group.class));
-                            Log.d("Children", group.getKey());
-                        }
-
-                        GroupListAdapter groupListAdapter = new GroupListAdapter(context, groups);
-                        listedGroups.setAdapter(groupListAdapter);
-                        progressDialogOn(false);
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
+                    public boolean onQueryTextChange(String newText) {
+                        if(spinner.getSelectedItem().toString().equals("Class")){
+                            groupListAdapter.filterByClass(newText);
+                        } else if (spinner.getSelectedItem().toString().equals("School")){
+                            groupListAdapter.filterBySchool(newText);
+                        }
+                        return false;
                     }
                 });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 

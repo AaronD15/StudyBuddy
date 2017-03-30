@@ -62,14 +62,9 @@ public class CreateGroup extends AppCompatActivity {
                 if(!validateForm())
                     Toast.makeText(CreateGroup.this, "Invalid School entry", Toast.LENGTH_SHORT).show();
                 else {
-
                     user = FirebaseAuth.getInstance().getCurrentUser();
-
-                    Group newGroup = new Group(Title, School, user.getUid(), Class, Description);
-                    newGroup.insertMember(user.getDisplayName(), user.getUid());
-
+                    Group newGroup = new Group(Title, School, user, Class, Description);
                     newGroup.push();
-
                     Toast.makeText(CreateGroup.this, "Group created.", Toast.LENGTH_SHORT).show();
                     finish();
                 }

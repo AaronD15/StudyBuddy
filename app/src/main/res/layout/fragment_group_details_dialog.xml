@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="edu.usf.devices.mobile.studybuddy.GroupDetails">
+    tools:context="edu.usf.devices.mobile.studybuddy.GroupDetailsDialog">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbarGroupDetails"
@@ -18,7 +18,6 @@
         app:titleTextColor="@color/white"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="-2dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

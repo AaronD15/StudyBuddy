@@ -86,7 +86,7 @@ public class TabFragment3 extends Fragment {
 
                 DataSnapshot courseData = dataSnapshot.child("courses");
                 for (DataSnapshot course : courseData.getChildren()){
-                    courses.add(course.getKey());
+                    courses.add(course.getValue(String.class));
                 }
 
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, R.layout.centered_listview, courses);

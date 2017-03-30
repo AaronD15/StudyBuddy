@@ -15,41 +15,28 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="8"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/search_input"
+            <android.support.v7.widget.SearchView
+                android:id="@+id/searchBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/search_hint"
-                android:inputType="textPersonName" />
+                app:defaultQueryHint="Search"
+                app:iconifiedByDefault="false"
+                app:showAsAction="always" />
 
             <Spinner
                 android:id="@+id/search_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:entries="@array/search_options"
                 android:foregroundTint="@color/colorPrimary"
                 android:theme="@style/AppTheme" />
 
         </LinearLayout>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:tint="@color/white"
-            app:backgroundTint="@color/colorPrimary"
-            app:fabSize="mini"
-            app:rippleColor="@color/colorAccent"
-            app:srcCompat="@android:drawable/ic_menu_search" />
 
     </LinearLayout>
 
@@ -58,6 +45,6 @@
     <ListView
         android:id="@+id/listedGroups"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="459dp" />
 
 </LinearLayout>

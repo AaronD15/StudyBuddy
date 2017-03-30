@@ -1,5 +1,6 @@
 package edu.usf.devices.mobile.studybuddy;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -9,24 +10,23 @@ public class Group {
     public String title;
     public String school;
     public String course;
-    public String creator;
+    public String creatorName;
+    public String creatorUid;
     public String desc;
     public String hash;
     public HashMap<String, String> members;
 
     public Group(){}
 
-    public Group(String title, String school, String creator, String course, String desc){
+    public Group(String title, String school, FirebaseUser creator, String course, String desc){
         this.title = title;
         this.school = school;
-        this.creator = creator;
+        this.creatorName = creator.getDisplayName();
+        this.creatorUid = creator.getUid();
         this.course = course;
         this.desc = desc;
         members = new HashMap<>();
-    }
-
-    public void insertMember(String display, String uid){
-        members.put(display, uid);
+        members.put(this.creatorName, this.creatorUid);
     }
 
     public void push(){

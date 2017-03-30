@@ -11,9 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -23,6 +28,7 @@ public class InputCourseDialog extends DialogFragment {
     Toolbar toolbar;
     Button inputCourse, cancel;
     DatabaseReference ref;
+    ArrayList<String> coursesList;
 
     public InputCourseDialog() {
         // Required empty public constructor
@@ -58,10 +64,26 @@ public class InputCourseDialog extends DialogFragment {
         inputCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap<String, Object> course = new HashMap<>();
-                course.put(courseName.getText().toString(), courseProf.getText().toString());
-                ref.updateChildren(course);
-                getDialog().dismiss();
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()) {
+                            coursesList = dataSnapshot.getValue(new GenericTypeIndicator<ArrayList<String>>() {});
+                        } else {
+                            coursesList = new ArrayList<>();
+                        }
+
+                        coursesList.add(courseName.getText().toString());
+                        ref.setValue(coursesList);
+                        getDialog().dismiss();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
 

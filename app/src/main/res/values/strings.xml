@@ -71,7 +71,8 @@
     <string-array name="search_options">
         <item>Class</item>
         <item>School</item>
-        <item>Professor</item>
+        <item>Title</item>
+        <item>Creator</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
 
