@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context="edu.usf.devices.mobile.studybuddy.GroupDetailsDialog">
 
@@ -18,6 +18,7 @@
         app:titleTextColor="@color/white"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="-2dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +33,7 @@
             android:paddingStart="10dp"
             android:paddingTop="10dp"
             android:text="@string/profile_schoolText"
-            android:textSize="15dp"
+            android:textSize="18dp"
             android:textStyle="bold" />
 
         <TextView
@@ -44,7 +45,7 @@
             android:paddingTop="10dp"
             android:text="@string/profile_school"
             android:textColor="@android:color/black"
-            android:textSize="15dp" />
+            android:textSize="18dp" />
     </LinearLayout>
 
 
@@ -62,7 +63,7 @@
             android:paddingStart="10dp"
             android:paddingTop="10dp"
             android:text="Class"
-            android:textSize="15dp"
+            android:textSize="18dp"
             android:textStyle="bold" />
 
         <TextView
@@ -74,7 +75,37 @@
             android:paddingTop="10dp"
             android:text="Class"
             android:textColor="@android:color/black"
-            android:textSize="15dp" />
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/groupDetailsCreator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:text="Creator"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/groupDetailsCreatorView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:text="Creator"
+            android:textColor="@android:color/black"
+            android:textSize="18dp" />
 
     </LinearLayout>
 
@@ -95,5 +126,17 @@
     <ListView
         android:id="@+id/groupDetailsMembers"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/emptygroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingEnd="15dp"
+        android:paddingStart="15dp"
+        android:paddingTop="10dp"
+        android:text="This group has no members."
+        android:visibility="gone" />
 </LinearLayout>

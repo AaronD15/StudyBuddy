@@ -60,7 +60,7 @@ public class TabFragment4 extends Fragment{
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        groupData.orderByChild("creator").equalTo(uid).addValueEventListener(new ValueEventListener() {
+        groupData.orderByChild("creatorUid").equalTo(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 groups.clear();

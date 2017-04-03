@@ -3,6 +3,7 @@ package edu.usf.devices.mobile.studybuddy;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -11,11 +12,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,11 +40,14 @@ import java.util.ArrayList;
 public class TabFragment3 extends Fragment {
 
     TextView name, school, major, year;
+    ArrayAdapter<String> arrayAdapter;
     ListView coursesView;
     FloatingActionButton inputCoursesButton;
     ArrayList<String> courses;
     Context context;
+    String userID;
     DatabaseReference ref;
+    String item;
 
     public TabFragment3() {
         // Required empty public constructor
@@ -65,7 +73,7 @@ public class TabFragment3 extends Fragment {
         coursesView.setEmptyView(view.findViewById(R.id.emptyCourses));
 
         ref = FirebaseDatabase.getInstance().getReference("users");
-        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         courses = new ArrayList<>();
 
@@ -89,8 +97,9 @@ public class TabFragment3 extends Fragment {
                     courses.add(course.getValue(String.class));
                 }
 
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, R.layout.centered_listview, courses);
+                arrayAdapter = new ArrayAdapter<>(context, R.layout.centered_listview, courses);
                 coursesView.setAdapter(arrayAdapter);
+                coursesView.setOnItemLongClickListener(new deleteLongClickListener());
             }
 
             @Override
@@ -100,7 +109,33 @@ public class TabFragment3 extends Fragment {
         });
 
 
+
+
         return view;
+    }
+
+    private class deleteLongClickListener implements AdapterView.OnItemLongClickListener{
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            item = (String)parent.getItemAtPosition(position);
+
+
+            DatabaseReference course = FirebaseDatabase.getInstance().getReference().child("users").child(userID).child("courses");
+
+            if(courses.contains(item)){
+                courses.remove(item);
+            }
+            course.setValue(courses).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        arrayAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
+            Toast.makeText(context, "Class removed", Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 
     private class inputCourseButtonListener implements View.OnClickListener{

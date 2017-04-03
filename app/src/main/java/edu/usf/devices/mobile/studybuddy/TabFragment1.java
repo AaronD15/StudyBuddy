@@ -115,7 +115,7 @@ public class TabFragment1 extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        listedGroups.setOnItemLongClickListener(new groupSelection());
+        listedGroups.setOnItemClickListener(new groupSelection());
     }
 
     private void setUpProgressDialog() {
@@ -132,13 +132,12 @@ public class TabFragment1 extends Fragment {
         }
     }
 
-    private class groupSelection implements AdapterView.OnItemLongClickListener {
+    private class groupSelection implements AdapterView.OnItemClickListener {
         @Override
-        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             GroupDetailsDialog dialog = GroupDetailsDialog.newInstance((Group)listedGroups.getItemAtPosition(position));
             FragmentManager fm = getActivity().getSupportFragmentManager();
             dialog.show(fm, "Fragment");
-            return true;
         }
     }
 

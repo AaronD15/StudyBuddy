@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,6 +34,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -40,7 +43,7 @@ public class GroupDetailsDialog extends DialogFragment {
 
     Context context;
     Group group;
-    TextView classView, schoolView;
+    TextView classView, schoolView, creatorView;
     ListView membersList;
     Toolbar toolbar;
     HashMap<String, Object> userJoin;
@@ -77,27 +80,28 @@ public class GroupDetailsDialog extends DialogFragment {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+        creatorView = (TextView)view.findViewById(R.id.groupDetailsCreatorView);
         schoolView = (TextView)view.findViewById(R.id.groupDetailsSchoolView);
         classView = (TextView)view.findViewById(R.id.groupDetailsClassView);
 
         membersList = (ListView)view.findViewById(R.id.groupDetailsMembers);
         members = new ArrayList<>();
 
-
-        members.addAll(group.members.keySet());
-
+        if(group.members != null)
+            members.addAll(group.members.keySet());
 
         schoolView.setText(group.school);
         classView.setText(group.course);
 
         arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, members);
         membersList.setAdapter(arrayAdapter);
-        membersList.setEmptyView(view.findViewById(R.id.empty));
+        membersList.setEmptyView(view.findViewById(R.id.emptygroup));
 
         if(user != null){
             // Toolbar button setup
             if(!group.creatorUid.equals(user.getUid())){
 
+                creatorView.setText(group.creatorName);
                 iconView = new ImageButton(context);
                 iconView.setBackground(null);
 
@@ -107,6 +111,8 @@ public class GroupDetailsDialog extends DialogFragment {
                     buttonState(1);
                 }
                 toolbar.addView(iconView, new Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT, GravityCompat.END));
+            } else {
+                creatorView.setText("You");
             }
         }
 
@@ -118,23 +124,32 @@ public class GroupDetailsDialog extends DialogFragment {
         ref.addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
+
+                    OnCompleteListener<Void> taskComplete = new OnCompleteListener<Void>(){
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(context, "You have joined " + group.title, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(context, "Failed to join group", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    };
+
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     userJoin = new HashMap<>();
                     if (user != null) {
                         userJoin.put(user.getDisplayName(), user.getUid());
-                        ref.updateChildren(userJoin);
+                        if(ref.getKey().isEmpty())
+                            ref.setValue(userJoin).addOnCompleteListener(taskComplete);
+                        else
+                            ref.updateChildren(userJoin).addOnCompleteListener(taskComplete);
                         if(!members.contains(user.getDisplayName())) {
                             members.add(user.getDisplayName());
                             arrayAdapter.notifyDataSetChanged();
                         }
                         buttonState(2);
-                        Toast.makeText(context, "You have joined " + group.title, Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(context, "Could not join group.", Toast.LENGTH_SHORT).show();
                     }
-                }
-
             }
 
             @Override

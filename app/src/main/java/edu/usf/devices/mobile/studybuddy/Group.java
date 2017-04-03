@@ -26,7 +26,6 @@ public class Group {
         this.course = course;
         this.desc = desc;
         members = new HashMap<>();
-        members.put(this.creatorName, this.creatorUid);
     }
 
     public void push(){

@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Would you like to delete this group?"
+        android:text="Are you sure you want to delete this group?"
         android:textStyle="bold" />
 
     <Space
