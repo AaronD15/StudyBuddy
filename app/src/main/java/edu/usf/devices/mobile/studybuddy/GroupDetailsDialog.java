@@ -99,7 +99,7 @@ public class GroupDetailsDialog extends DialogFragment {
 
         if(user != null){
             // Toolbar button setup
-            if(!group.creatorUid.equals(user.getUid())){
+            if(group.creatorUid != null && !group.creatorUid.equals(user.getUid())){
 
                 creatorView.setText(group.creatorName);
                 iconView = new ImageButton(context);

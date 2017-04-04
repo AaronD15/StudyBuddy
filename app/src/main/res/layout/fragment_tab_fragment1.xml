@@ -9,34 +9,27 @@
     <!-- Search entries -->
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <android.support.v7.widget.SearchView
+            android:id="@+id/searchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:orientation="vertical">
+            app:defaultQueryHint="Search"
+            app:iconifiedByDefault="false"
+            app:showAsAction="always" />
 
-            <android.support.v7.widget.SearchView
-                android:id="@+id/searchBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:defaultQueryHint="Search"
-                app:iconifiedByDefault="false"
-                app:showAsAction="always" />
-
-            <Spinner
-                android:id="@+id/search_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:backgroundTint="@color/colorPrimary"
-                android:entries="@array/search_options"
-                android:foregroundTint="@color/colorPrimary"
-                android:theme="@style/AppTheme" />
-
-        </LinearLayout>
+        <Spinner
+            android:id="@+id/search_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorPrimary"
+            android:entries="@array/search_options"
+            android:foregroundTint="@color/colorPrimary"
+            android:theme="@style/AppTheme" />
 
     </LinearLayout>
 
@@ -45,6 +38,6 @@
     <ListView
         android:id="@+id/listedGroups"
         android:layout_width="match_parent"
-        android:layout_height="459dp" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

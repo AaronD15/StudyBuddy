@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.vision.text.Text;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -71,6 +72,18 @@ public class TabFragment1 extends Fragment {
         DatabaseReference groupData = FirebaseDatabase.getInstance().getReference().child("groups");
         groups = new ArrayList<>();
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                searchBar.setQueryHint(spinner.getItemAtPosition(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         groupData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -98,6 +111,10 @@ public class TabFragment1 extends Fragment {
                             groupListAdapter.filterByClass(newText);
                         } else if (spinner.getSelectedItem().toString().equals("School")){
                             groupListAdapter.filterBySchool(newText);
+                        } else if (spinner.getSelectedItem().toString().equals("Title")){
+
+                        } else if (spinner.getAdapter().toString().equals("Creator")){
+
                         }
                         return false;
                     }
