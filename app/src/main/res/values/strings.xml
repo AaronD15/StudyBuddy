@@ -92,4 +92,10 @@
         <item>University of South Florida</item>
         <item>University of West Florida</item>
     </string-array>
+    <string name="title_activity_rating_display">RatingDisplay</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

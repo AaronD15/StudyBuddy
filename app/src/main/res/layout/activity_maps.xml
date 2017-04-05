@@ -1,3 +1,9 @@
+<FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/tools">
+
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -5,4 +11,64 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.usf.devices.mobile.studybuddy.MapsActivity" />
+    tools:context="edu.usf.devices.mobile.studybuddy.MapsActivity"
+    />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/previousBtn"
+        android:layout_width="55dp"
+        android:layout_height="59dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="0.30"
+        android:clickable="true"
+        app:elevation="11dp"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/ic_close_dark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/CoffeePlaces"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="116dp"
+            android:layout_marginLeft="16dp"
+            android:layout_height="82dp"
+            android:layout_weight="0.00"
+            android:clickable="true"
+            android:visibility="visible"
+            android:layout_gravity="bottom|end"
+            app:elevation="11dp"
+            app:fabSize="normal"
+            app:srcCompat="@mipmap/ic_coffee" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/StudyPlacesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="46dp"
+            android:layout_marginLeft="16dp"
+            android:layout_weight="0.30"
+            android:clickable="true"
+            android:visibility="visible"
+            app:backgroundTint="@color/colorPrimary"
+            app:elevation="11dp"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/studybuddyicon" />
+
+    </LinearLayout>
+
+</FrameLayout>

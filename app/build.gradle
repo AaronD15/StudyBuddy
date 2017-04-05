@@ -26,6 +26,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
+
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
     compile 'com.android.support:support-v4:25.2.0'
@@ -36,8 +37,10 @@ dependencies {
     compile 'com.google.firebase:firebase-database:10.2.0'
     compile 'com.google.gms:google-services:3.0.0'
     compile 'com.google.android.gms:play-services:10.2.0'
+    compile 'com.android.support:gridlayout-v7:25.3.1'
     testCompile 'junit:junit:4.12'
 }
+
 
 
 
