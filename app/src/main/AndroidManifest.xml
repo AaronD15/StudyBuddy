@@ -41,10 +41,7 @@
             android:label="@string/title_activity_maps">
             Maps Activity
         </activity>
-<<<<<<< Updated upstream
-        <activity android:name=".ViewCalendars"></activity>
-=======
->>>>>>> Stashed changes
+        <activity android:name=".ViewCalendars"/>
     </application>
 
 </manifest>

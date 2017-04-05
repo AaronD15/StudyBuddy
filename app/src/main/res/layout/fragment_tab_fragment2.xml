@@ -25,9 +25,9 @@
 
 
     <CalendarView
+        android:id="@+id/calendar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/calendar1">
+        android:layout_height="wrap_content">
 
     </CalendarView>
     <TextView
@@ -43,12 +43,12 @@
         android:orientation="horizontal">
 
 
-    <Button
-        android:id="@+id/stduyPlaceButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/studyPlace_button" />
+        <Button
+            android:id="@+id/studyPlaceButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/studyPlace_button" />
 
     <Button
         android:id="@+id/schedulerButton"
