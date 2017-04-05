@@ -16,6 +16,13 @@
         android:text="Scheduler"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <TextView
+        android:id="@+id/calendarText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="@string/click_calendar"/>
+
 
     <CalendarView
         android:layout_width="wrap_content"
@@ -23,11 +30,6 @@
         android:id="@+id/calendar1">
 
     </CalendarView>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
     <TextView
         android:id="@+id/placesText"
         android:layout_width="wrap_content"
@@ -35,11 +37,29 @@
         android:paddingTop="10dp"
         android:text="@string/places_text"/>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
     <Button
         android:id="@+id/stduyPlaceButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@string/studyPlace_button" />
+
+    <Button
+        android:id="@+id/schedulerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/scheduler_button" />
+
     </LinearLayout>
+
+
+
+
 </LinearLayout>
