@@ -106,6 +106,7 @@ public class ViewCalendars extends FragmentActivity {
         String[] l_projection = new String[]{"title", "dtstart", "dtend"};
         Cursor l_managedCursor = this.getContentResolver().query(l_eventUri, l_projection, "_id=" + m_selectedCalendarId, null, "dtstart DESC, dtend DESC");
         //Cursor l_managedCursor = this.managedQuery(l_eventUri, l_projection, null, null, null);
+
         if (l_managedCursor != null) {
 
             if (l_managedCursor.moveToFirst()) {
