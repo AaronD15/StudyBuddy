@@ -1,19 +1,20 @@
 package edu.usf.devices.mobile.studybuddy;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -46,6 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
+    LatLng latLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +90,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this,
@@ -146,6 +147,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 finish();
             }
         });
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener()
+        {
+
+            public boolean onMarkerClick(Marker arg0) {
+                if(true) { // if marker source is clicked
+                    // Toast.makeText(MapsActivity.this, arg0.getTitle(), Toast.LENGTH_SHORT).show();// display toast
+                    String textT = arg0.getTitle();
+                    String textA = arg0.getSnippet();
+                    Intent pop = new Intent(MapsActivity.this,PopRating.class);
+                    pop.putExtra("my text",textT);
+                    pop.putExtra("my address",textA);
+                    startActivity(pop);
+                }
+                return true;
+            }
+
+        });
     }
     protected synchronized void buildGoogleApiClient() {
         Log.i(TAG, "Building Google API Client");
@@ -177,7 +195,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googlePlacesUrl.append("&radius=" + PROXIMITY_RADIUS);
         googlePlacesUrl.append("&type=" + nearbyPlace);
         googlePlacesUrl.append("&sensor=true");
-        googlePlacesUrl.append("&key=" + "AIzaSyATuUiZUkEc_UgHuqsBJa1oqaODI-3mLs0");
+        // mine  AIzaSyBIs7YwJiQE1fQN6LWnO19kx1mn4U7n5Rs
+        googlePlacesUrl.append("&key=" + "AIzaSyAFzsk6AeK4-RUxdA087rrSYYdkudUs0NE");
+        //AIzaSyATuUiZUkEc_UgHuqsBJa1oqaODI-3mLs0 <== got it from online
         Log.d("getUrl", googlePlacesUrl.toString());
         return (googlePlacesUrl.toString());
     }
@@ -198,7 +218,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Place current location marker
         latitude = location.getLatitude();
         longitude = location.getLongitude();
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Current Position");
