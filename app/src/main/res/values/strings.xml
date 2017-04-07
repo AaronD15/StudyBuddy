@@ -15,7 +15,8 @@
 
     <!--Scheduler Strings-->
     <string name="studyPlace_button">Places</string>
-    <string name="places_text">Click to view places to study near you</string>
+    <string name="places_text">View Study Places: </string>
+    <string name="schedule_text">View Schedule: </string>
     <string name="click_calendar">Select a date to add a study session to your calendar</string>
     <string name="scheduler_button">View Events</string>
 
