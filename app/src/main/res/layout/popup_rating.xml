@@ -17,14 +17,14 @@
         <Spinner
             android:id="@+id/groups_list"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="36dp"
             android:layout_column="0"
             android:layout_row="0"
             android:visibility="visible" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/AddBtn"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:layout_gravity="top|right"
@@ -124,10 +124,10 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/besttimedislay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="Morning:40% Afternoon:50% Night:10%"
             android:textSize="18sp" />
 
         <android.support.design.widget.FloatingActionButton
