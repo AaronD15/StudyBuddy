@@ -43,6 +43,6 @@
         </activity>
         <activity android:name=".ViewCalendars"/>
         <activity android:name=".Feedback" android:theme="@style/AppTheme.CustomTheme"/>
-        <activity android:name=".PopRating" android:theme="@style/AppTheme.CustomTheme"/>
+        <activity android:name=".PopRating" android:theme="@style/AppTheme.CustomT"/>
     </application>
 </manifest>

@@ -64,7 +64,8 @@ public class PopRating extends Activity {
             rate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   startActivity(new Intent(PopRating.this,Feedback.class));
+                   // Intent popF = new Intent(PopRating.this,Feedback.class);
+                    //startActivity(popF);
                 }
             });
         }
