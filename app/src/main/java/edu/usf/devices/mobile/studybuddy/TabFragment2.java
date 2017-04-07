@@ -1,7 +1,10 @@
 package edu.usf.devices.mobile.studybuddy;
 
 
+import android.content.ContentUris;
 import android.content.Intent;
+import android.icu.util.Calendar;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
@@ -13,6 +16,8 @@ import android.widget.CalendarView;
 import android.widget.Toast;
 
 import java.util.GregorianCalendar;
+
+import static edu.usf.devices.mobile.studybuddy.R.color.colorAccent;
 
 
 /**
@@ -66,6 +71,9 @@ public class TabFragment2 extends Fragment {
                         calDate.getTimeInMillis());
                 calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
                         calDate.getTimeInMillis());
+                calIntent.putExtra(CalendarContract.Events.TITLE, "Study Buddy: ");
+                calIntent.putExtra(CalendarContract.Events.EVENT_COLOR_KEY, colorAccent);
+                calIntent.putExtra(CalendarContract.Events.EVENT_COLOR, colorAccent);
                 startActivity(calIntent);
 
             }
@@ -86,9 +94,14 @@ public class TabFragment2 extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent calIntent = new Intent(getActivity(), ViewCalendars.class);
+               // Intent calIntent = new Intent(getActivity(), ViewCalendars.class);
+                Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+                builder.appendPath("time");
+                ContentUris.appendId(builder, Calendar.getInstance().getTimeInMillis());
+                Intent intent = new Intent(Intent.ACTION_VIEW)
+                        .setData(builder.build());
+                startActivity(intent);
 
-                startActivity(calIntent);
             }
         });
 
