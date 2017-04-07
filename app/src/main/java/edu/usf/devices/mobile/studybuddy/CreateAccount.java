@@ -64,8 +64,6 @@ public class CreateAccount extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         users = FirebaseDatabase.getInstance().getReference().child("users");
 
-
-
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +76,6 @@ public class CreateAccount extends AppCompatActivity {
                 school = schoolField.getText().toString();
                 year = spinner.getSelectedItem().toString();
                 major = majorField.getText().toString();
-
                 createAccount(email, password);
             }
         });

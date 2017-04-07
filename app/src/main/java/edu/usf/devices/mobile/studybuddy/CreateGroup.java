@@ -30,6 +30,7 @@ public class CreateGroup extends AppCompatActivity {
     EditText titleField, classField, descriptionField;
     AutoCompleteTextView schoolField;
     String Title, School, Class, Description;
+    String Address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +59,12 @@ public class CreateGroup extends AppCompatActivity {
                 School = schoolField.getText().toString();
                 Class = classField.getText().toString();
                 Description = descriptionField.getText().toString();
-
+                Address = "TBA";
                 if(!validateForm())
                     Toast.makeText(CreateGroup.this, "Invalid School entry", Toast.LENGTH_SHORT).show();
                 else {
                     user = FirebaseAuth.getInstance().getCurrentUser();
-                    Group newGroup = new Group(Title, School, user, Class, Description);
+                    Group newGroup = new Group(Title, School, user, Class, Description, Address);
                     newGroup.push();
                     Toast.makeText(CreateGroup.this, "Group created.", Toast.LENGTH_SHORT).show();
                     finish();

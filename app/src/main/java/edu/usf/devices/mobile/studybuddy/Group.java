@@ -14,17 +14,19 @@ public class Group {
     public String creatorUid;
     public String desc;
     public String hash;
+    public String address;
     public HashMap<String, String> members;
 
     public Group(){}
 
-    public Group(String title, String school, FirebaseUser creator, String course, String desc){
+    public Group(String title, String school, FirebaseUser creator, String course, String desc, String address){
         this.title = title;
         this.school = school;
         this.creatorName = creator.getDisplayName();
         this.creatorUid = creator.getUid();
         this.course = course;
         this.desc = desc;
+        this.address=address;
         members = new HashMap<>();
     }
 
