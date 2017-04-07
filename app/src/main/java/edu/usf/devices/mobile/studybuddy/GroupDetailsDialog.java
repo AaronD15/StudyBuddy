@@ -1,6 +1,7 @@
 package edu.usf.devices.mobile.studybuddy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -43,7 +44,7 @@ public class GroupDetailsDialog extends DialogFragment {
 
     Context context;
     Group group;
-    TextView classView, schoolView, creatorView;
+    TextView classView, schoolView, creatorView, placeView;
     ListView membersList;
     Toolbar toolbar;
     HashMap<String, Object> userJoin;
@@ -83,6 +84,7 @@ public class GroupDetailsDialog extends DialogFragment {
         creatorView = (TextView)view.findViewById(R.id.groupDetailsCreatorView);
         schoolView = (TextView)view.findViewById(R.id.groupDetailsSchoolView);
         classView = (TextView)view.findViewById(R.id.groupDetailsClassView);
+        placeView  = (TextView)view.findViewById(R.id.groupDetailsPlaceView);
 
         membersList = (ListView)view.findViewById(R.id.groupDetailsMembers);
         members = new ArrayList<>();
@@ -92,6 +94,22 @@ public class GroupDetailsDialog extends DialogFragment {
 
         schoolView.setText(group.school);
         classView.setText(group.course);
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("groups").child(group.hash).child("place");
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    placeView.setText(dataSnapshot.getValue(String.class));
+                } else
+                    placeView.setText("Not assigned");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, members);
         membersList.setAdapter(arrayAdapter);
@@ -113,8 +131,17 @@ public class GroupDetailsDialog extends DialogFragment {
                 toolbar.addView(iconView, new Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.WRAP_CONTENT, GravityCompat.END));
             } else {
                 creatorView.setText("You");
+                placeView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getActivity(), MapsActivity.class);
+                        intent.putExtra("GROUP", group);
+                        startActivity(intent);
+                    }
+                });
             }
         }
+
 
     }
 

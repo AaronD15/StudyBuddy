@@ -37,6 +37,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
+    Group group;
     private GoogleMap mMap;
     double latitude;
     double longitude;
@@ -54,6 +55,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        group = getIntent().getParcelableExtra("GROUP");
+
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
@@ -156,8 +160,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     String textT = arg0.getTitle();
                     String textA = arg0.getSnippet();
                     Intent pop = new Intent(MapsActivity.this,PopRating.class);
-                    pop.putExtra("my text",textT);
-                    pop.putExtra("my address",textA);
+
+
+                    Bundle b = new Bundle();
+                    b.putString("my text",textT);
+                    b.putString("my address",textA);
+                    if(group != null)
+                        b.putString("grouphash", group.hash);
+                    else
+                        b.putString("grouphash", "DNE");
+
+                    pop.putExtra("BUNDLE", b);
                     startActivity(pop);
                 }
                 return true;
