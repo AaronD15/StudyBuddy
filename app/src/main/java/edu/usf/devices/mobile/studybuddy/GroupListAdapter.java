@@ -73,11 +73,12 @@ public class GroupListAdapter extends BaseAdapter {
         Group group = (Group)getItem(position);
         holder.titletext.setText(group.title);
         holder.classtext.setText(group.course);
-        if (user != null && group.creatorUid.equals(userID)){
+        holder.creatortext.setText(group.creatorName);
+        /*if (user != null && group.creatorUid.equals(userID)){
             holder.creatortext.setText("You");
         } else {
             holder.creatortext.setText(group.creatorName);
-        }
+        }*/
         return convertView;
     }
 

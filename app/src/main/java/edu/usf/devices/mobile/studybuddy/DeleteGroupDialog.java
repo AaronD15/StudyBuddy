@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 
 public class DeleteGroupDialog extends DialogFragment {
 
@@ -73,6 +75,18 @@ public class DeleteGroupDialog extends DialogFragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
+
+                                // Delete group from creator's data
+                                ref.getRoot().child("users").child(group.creatorUid).child("grouphash").child(group.hash).removeValue();
+
+                                // Delete group from member's data
+                                if (group.members != null && !group.members.isEmpty()){
+                                    for (String member : group.members.values()) {
+                                        ref = ref.getRoot().child("users").child(member).child("grouphash").child(group.hash);
+                                        if (!ref.getKey().isEmpty())
+                                            ref.removeValue();
+                                    }
+                                }
                                 Toast.makeText(context, "Group successfully deleted.", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(context, "Failed to delete group.", Toast.LENGTH_SHORT).show();

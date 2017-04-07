@@ -137,6 +137,7 @@ public class GroupDetailsDialog extends DialogFragment {
                     };
 
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
                     userJoin = new HashMap<>();
                     if (user != null) {
                         userJoin.put(user.getDisplayName(), user.getUid());
@@ -148,6 +149,8 @@ public class GroupDetailsDialog extends DialogFragment {
                             members.add(user.getDisplayName());
                             arrayAdapter.notifyDataSetChanged();
                         }
+
+                        FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("grouphash").child(group.hash).setValue(true);
                         buttonState(2);
                     }
             }
@@ -160,14 +163,20 @@ public class GroupDetailsDialog extends DialogFragment {
     }
 
     public void leaveGroup(){
+        // Get the firebase user
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         if( user != null && user.getDisplayName() != null ) {
+
+            // Remove user from group
             ref = FirebaseDatabase.getInstance().getReference().child("groups").child(group.hash).child("members").child(user.getDisplayName());
             ref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
 
                     if(task.isSuccessful()){
+
+                        FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("grouphash").child(group.hash).removeValue();
 
                         Toast.makeText(context, "You have left " + group.title, Toast.LENGTH_SHORT).show();
 
