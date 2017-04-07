@@ -28,7 +28,6 @@ public class GroupListAdapter extends BaseAdapter {
         this.helperList = new ArrayList<>();
         this.helperList.addAll(dataSource);
         user = FirebaseAuth.getInstance().getCurrentUser();
-        userID = user.getUid();
     }
 
     private static class ViewHolder {
@@ -57,6 +56,8 @@ public class GroupListAdapter extends BaseAdapter {
 
         ViewHolder holder;
 
+        userID = user.getUid();
+
         if(convertView == null){
             convertView = inflater.inflate(R.layout.grouplist_item, parent, false);
             holder = new ViewHolder();
@@ -74,11 +75,11 @@ public class GroupListAdapter extends BaseAdapter {
         holder.titletext.setText(group.title);
         holder.classtext.setText(group.course);
         holder.creatortext.setText(group.creatorName);
-        /*if (user != null && group.creatorUid.equals(userID)){
+
+        if(userID != null && group.creatorUid.equals(userID)){
             holder.creatortext.setText("You");
-        } else {
-            holder.creatortext.setText(group.creatorName);
-        }*/
+        }
+
         return convertView;
     }
 

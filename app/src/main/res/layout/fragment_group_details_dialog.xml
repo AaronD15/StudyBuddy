@@ -139,4 +139,5 @@
         android:paddingTop="10dp"
         android:text="This group has no members."
         android:visibility="gone" />
+
 </LinearLayout>
