@@ -4,6 +4,7 @@ package edu.usf.devices.mobile.studybuddy;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +36,7 @@ import java.util.ArrayList;
 public class TabFragment4 extends Fragment{
 
     Button createButton;
-    DatabaseReference groupData;
+    DatabaseReference uref, gref;
     ListView profileGroups;
     ArrayList<Group> groups;
     Context context;
@@ -54,34 +56,60 @@ public class TabFragment4 extends Fragment{
 
         createButton = (Button) view.findViewById(R.id.createButton);
         profileGroups = (ListView) view.findViewById(R.id.profileGroups);
-
         groups = new ArrayList<>();
-        groupData = FirebaseDatabase.getInstance().getReference().child("groups");
 
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        try {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = "";
+            if (user != null)
+                uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        groupData.orderByChild("creatorUid").equalTo(uid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                groups.clear();
+            uref = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("grouphash");
+            gref = uref.getRoot().child("groups");
 
-                for( DataSnapshot group : dataSnapshot.getChildren()){
-                    groups.add(group.getValue(Group.class));
-                    Log.d("TAG", group.getKey());
+            // Listener on user's grouphash data
+            uref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    groups.clear();
+
+                    final GroupListAdapter groupListAdapter = new GroupListAdapter(context, groups);
+                    profileGroups.setAdapter(groupListAdapter);
+                    profileGroups.setEmptyView(view.findViewById(R.id.empty));
+
+                    // Traverse through all the group hashkeys
+                    for( DataSnapshot data : dataSnapshot.getChildren()){
+
+                        // Find the corresponding group hashkeys within the "groups" reference
+                        gref.child(data.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                // Add group to the group list
+                                if(dataSnapshot.exists()) {
+                                    groups.add(dataSnapshot.getValue(Group.class));
+                                    groupListAdapter.notifyDataSetChanged();
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {}
+                        });
+                    }
                 }
 
-                GroupListAdapter groupListAdapter = new GroupListAdapter(context, groups);
-                profileGroups.setAdapter(groupListAdapter);
-                profileGroups.setEmptyView(view.findViewById(R.id.empty));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {}
+            });
+        } catch (Exception e ){
+            e.printStackTrace();
+        }
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override

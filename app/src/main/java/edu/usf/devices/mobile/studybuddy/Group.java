@@ -29,8 +29,13 @@ public class Group {
     }
 
     public void push(){
+        // Push the group to the groups reference
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("groups").push();
         this.hash = ref.getKey();
         ref.setValue(this);
+
+
+        // Push the group's hash value to the userdata
+        ref.getRoot().child("users").child(creatorUid).child("grouphash").child(hash).setValue(true);
     }
 }
