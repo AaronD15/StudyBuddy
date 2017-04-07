@@ -1,10 +1,7 @@
 package edu.usf.devices.mobile.studybuddy;
 
 
-import android.content.ContentUris;
 import android.content.Intent;
-import android.icu.util.Calendar;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.v4.app.Fragment;
@@ -16,8 +13,6 @@ import android.widget.CalendarView;
 import android.widget.Toast;
 
 import java.util.GregorianCalendar;
-
-import static edu.usf.devices.mobile.studybuddy.R.color.colorAccent;
 
 
 /**
@@ -53,28 +48,23 @@ public class TabFragment2 extends Fragment {
         // Inflate the layout for this fragment
         //inflater.inflate(R.layout.fragment_tab_fragment2, container, false);
         View v = inflater.inflate(R.layout.fragment_tab_fragment2, container, false);
-        calendar = (CalendarView) v.findViewById(R.id.calendar1);
-        button1 = (Button) v.findViewById(R.id.stduyPlaceButton);
+        calendar = (CalendarView) v.findViewById(R.id.calendar);
+        button1 = (Button) v.findViewById(R.id.studyPlaceButton);
         button2 = (Button) v.findViewById(R.id.schedulerButton);
-
-
 
         //Changes dates selected
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int day){
                 Toast.makeText(getActivity(), month+1 + "/" + day + "/" + year, Toast.LENGTH_SHORT).show();
-                Intent calIntent = new Intent(Intent.ACTION_INSERT);
-                calIntent.setData(CalendarContract.Events.CONTENT_URI);
-                GregorianCalendar calDate = new GregorianCalendar(year, month, day);
-                calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
-                        calDate.getTimeInMillis());
-                calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
-                        calDate.getTimeInMillis());
-                calIntent.putExtra(CalendarContract.Events.TITLE, "Study Buddy: ");
-                calIntent.putExtra(CalendarContract.Events.EVENT_COLOR_KEY, colorAccent);
-                calIntent.putExtra(CalendarContract.Events.EVENT_COLOR, colorAccent);
-                startActivity(calIntent);
+                //Intent calIntent = new Intent(Intent.ACTION_INSERT);
+                //calIntent.setData(CalendarContract.Events.CONTENT_URI);
+                //GregorianCalendar calDate = new GregorianCalendar(year, month, day);
+                //calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                //        calDate.getTimeInMillis());
+                //calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+                //        calDate.getTimeInMillis());
+                //startActivity(calIntent);
 
             }
         });
@@ -94,14 +84,9 @@ public class TabFragment2 extends Fragment {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent calIntent = new Intent(getActivity(), ViewCalendars.class);
-                Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
-                builder.appendPath("time");
-                ContentUris.appendId(builder, Calendar.getInstance().getTimeInMillis());
-                Intent intent = new Intent(Intent.ACTION_VIEW)
-                        .setData(builder.build());
-                startActivity(intent);
+                Intent calIntent = new Intent(getActivity(), ViewCalendars.class);
 
+                startActivity(calIntent);
             }
         });
 
