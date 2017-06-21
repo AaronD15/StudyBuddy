@@ -5,7 +5,7 @@
     android:paddingStart="10dp"
     android:paddingEnd="10dp"
     android:orientation="vertical"
-    tools:context="edu.usf.devices.mobile.studybuddy.TabFragment2">
+    tools:context="edu.usf.devices.mobile.studybuddy.FragmentSchedule">
 
     <TextView
         android:id="@+id/textView"
@@ -25,41 +25,50 @@
 
 
     <CalendarView
-        android:id="@+id/calendar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    </CalendarView>
-    <TextView
-        android:id="@+id/placesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:text="@string/places_text"/>
+        android:id="@+id/calendar1">
+
+    </CalendarView>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-
-        <Button
-            android:id="@+id/studyPlaceButton"
+        <TextView
+            android:id="@+id/scheduleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/studyPlace_button" />
+            android:paddingTop="10dp"
+            android:text="@string/schedule_text" />
 
-    <Button
-        android:id="@+id/schedulerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/scheduler_button" />
+        <Button
+            android:id="@+id/schedulerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="@string/scheduler_button" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="302dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/placesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="@string/places_text" />
 
+        <Button
+            android:id="@+id/StudyPlacesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+                android:text="@string/studyPlace_button" />
 
-
+    </LinearLayout>
 </LinearLayout>
+

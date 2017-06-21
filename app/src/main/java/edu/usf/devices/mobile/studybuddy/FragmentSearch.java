@@ -3,40 +3,28 @@ package edu.usf.devices.mobile.studybuddy;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.SearchView;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.google.android.gms.vision.text.Text;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class TabFragment1 extends Fragment {
+public class FragmentSearch extends Fragment {
 
     private SearchView searchBar;
     private Context context;
@@ -46,7 +34,7 @@ public class TabFragment1 extends Fragment {
     private ArrayList<Group> groups;
     GroupListAdapter groupListAdapter;
 
-    public TabFragment1() {
+    public FragmentSearch() {
         // Required empty public constructor
     }
 
@@ -55,7 +43,7 @@ public class TabFragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab_fragment1, container, false);
+        return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
     @Override

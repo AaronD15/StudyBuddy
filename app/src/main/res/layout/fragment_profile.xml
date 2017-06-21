@@ -6,7 +6,7 @@
     android:gravity="top"
     android:orientation="vertical"
 
-    tools:context="edu.usf.devices.mobile.studybuddy.TabFragment3">
+    tools:context="edu.usf.devices.mobile.studybuddy.FragmentProfile">
 
 
     <ImageView
@@ -16,7 +16,8 @@
         android:layout_marginTop="44dp"
         android:contentDescription="Profile Picture"
         android:paddingBottom="5dp"
-        android:src="@drawable/stock" />
+        android:src="@drawable/stock"
+        />
 
     <TextView
         android:id="@+id/nameView"

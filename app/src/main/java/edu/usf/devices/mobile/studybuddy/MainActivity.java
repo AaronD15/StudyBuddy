@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,10 +31,11 @@ public class MainActivity extends AppCompatActivity  {
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Search"));
-        tabLayout.addTab(tabLayout.newTab().setText("Schedule"));
-        tabLayout.addTab(tabLayout.newTab().setText("Profile"));
-        tabLayout.addTab(tabLayout.newTab().setText("Groups"));
+        //tabLayout.addTab(tabLayout.newTab().setText("Search"));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.group));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.mipmap.search));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.scheduler));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.profile));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -95,6 +98,7 @@ public class MainActivity extends AppCompatActivity  {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.settings:
+                settings();
                 break;
             case R.id.sign_out:
                 signOut();
@@ -108,28 +112,45 @@ public class MainActivity extends AppCompatActivity  {
         return true;
     }
 
+    public void startIntent(Intent intentToStart){
+        intentToStart.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        intentToStart.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intentToStart);
+    }
+    public void settings(){
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startIntent(intent);
+    }
+
     public void signOut() {
         FirebaseAuth.getInstance().signOut();
         LogInScreen();
     }
 
-    public void UpdateProfile() {
-        Intent intent = new Intent(this, UpdateProfile.class);
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
-
     private void LogInScreen() {
         Intent intent = new Intent(this, EmailPasswordActivity.class);
-
-
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        startIntent(intent);
     }
 
+    public void UpdateProfile() {
+        Intent intent = new Intent(this, UpdateProfile.class);
+        startIntent(intent);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(getApplicationContext(),"Start1",Toast.LENGTH_SHORT).show();
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag("FragmentProfile");
+        if (fragment!=null){
+            fragment.onActivityResult(requestCode, resultCode, data);
+            Toast.makeText(getApplicationContext(),"FRAGMENT IS NOT NULL",Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getApplicationContext(),"FRAGMENT IS NULL",Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 }

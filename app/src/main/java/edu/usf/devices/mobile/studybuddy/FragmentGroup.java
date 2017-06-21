@@ -7,15 +7,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,15 +22,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TabFragment4 extends Fragment{
+public class FragmentGroup extends Fragment{
 
     Button createButton;
     DatabaseReference uref, gref;
@@ -41,7 +36,7 @@ public class TabFragment4 extends Fragment{
     ArrayList<Group> groups;
     Context context;
 
-    public TabFragment4() {
+    public FragmentGroup() {
         // Required empty public constructor
     }
 
@@ -51,7 +46,7 @@ public class TabFragment4 extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        final View view = inflater.inflate(R.layout.fragment_tab_fragment4, container, false);
+        final View view = inflater.inflate(R.layout.fragment_group, container, false);
         context = getContext();
 
         createButton = (Button) view.findViewById(R.id.createButton);

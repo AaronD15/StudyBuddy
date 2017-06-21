@@ -18,13 +18,13 @@ public class PageAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                return new TabFragment1();
+                return new FragmentGroup();
             case 1:
-                return new TabFragment2();
+                return new FragmentSearch();
             case 2:
-                return new TabFragment3();
+                return new FragmentSchedule();
             case 3:
-                return new TabFragment4();
+                return new FragmentProfile();
             default:
                 return null;
         }
