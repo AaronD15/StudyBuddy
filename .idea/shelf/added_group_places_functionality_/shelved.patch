@@ -1,0 +1,99 @@
+Index: app/src/main/java/edu/usf/devices/mobile/studybuddy/TabFragment2.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/edu/usf/devices/mobile/studybuddy/TabFragment2.java	(revision 018a742433fe13ac4c881cac62ae8c1d61319b04)
++++ app/src/main/java/edu/usf/devices/mobile/studybuddy/TabFragment2.java	(revision )
+@@ -1,7 +1,9 @@
+ package edu.usf.devices.mobile.studybuddy;
+ 
+ 
++import android.content.ContentUris;
+ import android.content.Intent;
++import android.net.Uri;
+ import android.os.Bundle;
+ import android.provider.CalendarContract;
+ import android.support.v4.app.Fragment;
+@@ -12,9 +14,12 @@
+ import android.widget.CalendarView;
+ import android.widget.Toast;
+ 
++import java.util.Calendar;
+ import java.util.GregorianCalendar;
+ 
++import static edu.usf.devices.mobile.studybuddy.R.attr.colorAccent;
+ 
++
+ /**
+  * A simple {@link Fragment} subclass.
+  */
+@@ -24,7 +29,7 @@
+     CalendarView calendar;
+ 
+     // Projection array. Creating indices for this array instead of doing
+-// dynamic lookups improves performance.
++    // dynamic lookups improves performance.
+     public static final String[] EVENT_PROJECTION = new String[] {
+             CalendarContract.Calendars._ID,                           // 0
+             CalendarContract.Calendars.ACCOUNT_NAME,                  // 1
+@@ -32,16 +37,10 @@
+             CalendarContract.Calendars.OWNER_ACCOUNT                  // 3
+     };
+ 
+-
+-
+-
+-
+-
+     public TabFragment2() {
+         // Required empty public constructor
+     }
+ 
+-
+     @Override
+     public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                              Bundle savedInstanceState) {
+@@ -57,15 +56,17 @@
+             @Override
+             public void onSelectedDayChange(CalendarView view, int year, int month, int day){
+                 Toast.makeText(getActivity(), month+1 + "/" + day + "/" + year, Toast.LENGTH_SHORT).show();
+-                //Intent calIntent = new Intent(Intent.ACTION_INSERT);
+-                //calIntent.setData(CalendarContract.Events.CONTENT_URI);
+-                //GregorianCalendar calDate = new GregorianCalendar(year, month, day);
+-                //calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+-                //        calDate.getTimeInMillis());
+-                //calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+-                //        calDate.getTimeInMillis());
+-                //startActivity(calIntent);
+-
++                Intent calIntent = new Intent(Intent.ACTION_INSERT);
++                calIntent.setData(CalendarContract.Events.CONTENT_URI);
++                GregorianCalendar calDate = new GregorianCalendar(year, month, day);
++                calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
++                        calDate.getTimeInMillis());
++                calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
++                        calDate.getTimeInMillis());
++                calIntent.putExtra(CalendarContract.Events.TITLE, "Study Buddy: ");
++                calIntent.putExtra(CalendarContract.Events.EVENT_COLOR_KEY, colorAccent);
++                calIntent.putExtra(CalendarContract.Events.EVENT_COLOR, colorAccent);
++                startActivity(calIntent);
+             }
+         });
+ 
+@@ -84,9 +85,12 @@
+         button2.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+-                Intent calIntent = new Intent(getActivity(), ViewCalendars.class);
+-
+-                startActivity(calIntent);
++                Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
++                builder.appendPath("time");
++                ContentUris.appendId(builder, Calendar.getInstance().getTimeInMillis());
++                Intent intent = new Intent(Intent.ACTION_VIEW)
++                        .setData(builder.build());
++                startActivity(intent);
+             }
+         });
+ 

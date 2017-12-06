@@ -1,0 +1,16 @@
+Index: app/src/main/java/edu/usf/devices/mobile/studybuddy/TabFragment2.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/edu/usf/devices/mobile/studybuddy/TabFragment2.java	(revision 018a742433fe13ac4c881cac62ae8c1d61319b04)
++++ app/src/main/java/edu/usf/devices/mobile/studybuddy/TabFragment2.java	(revision )
+@@ -16,7 +16,7 @@
+ 
+ 
+ /**
+- * A simple {@link Fragment} subclass.
++ * a simple {@link fragment} subclass.
+  */
+ public class TabFragment2 extends Fragment {
+ 
